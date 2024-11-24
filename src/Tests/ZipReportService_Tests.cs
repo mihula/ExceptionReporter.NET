@@ -1,10 +1,11 @@
- using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using ExceptionReporting;
 using ExceptionReporting.Core;
 using ExceptionReporting.Zip;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Tests.ExceptionReporting
 {
@@ -32,14 +33,14 @@ namespace Tests.ExceptionReporting
 
 			var config = new ExceptionReportInfo
 			{
-				FilesToAttach = new List<string>().ToArray(), 
-				TakeScreenshot = false, 
+				FilesToAttach = new List<string>().ToArray(),
+				TakeScreenshot = false,
 				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
 
-			Assert.IsTrue(result == string.Empty);
+			ClassicAssert.IsTrue(result == string.Empty);
 			_zipper.Verify(z => z.Zip(zipFilename, It.IsAny<IEnumerable<string>>()), Times.Never);
 		}
 
@@ -63,8 +64,8 @@ namespace Tests.ExceptionReporting
 
 			var config = new ExceptionReportInfo
 			{
-				FilesToAttach = filesToAttach.ToArray(), 
-				TakeScreenshot = false, 
+				FilesToAttach = filesToAttach.ToArray(),
+				TakeScreenshot = false,
 				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
@@ -84,11 +85,11 @@ namespace Tests.ExceptionReporting
 			_fileService.Setup(f => f.Exists(zipFilename)).Returns(true);
 			_fileService.Setup(f => f.TempFile(zipFilename)).Returns(zipFilename);
 
-			var filesToAttach = new List<string> {logFile};
+			var filesToAttach = new List<string> { logFile };
 			var config = new ExceptionReportInfo
 			{
-				FilesToAttach = filesToAttach.ToArray(), 
-				TakeScreenshot = false, 
+				FilesToAttach = filesToAttach.ToArray(),
+				TakeScreenshot = false,
 				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
@@ -112,8 +113,8 @@ namespace Tests.ExceptionReporting
 
 			var config = new ExceptionReportInfo
 			{
-				FilesToAttach = new string[]{}, 
-				TakeScreenshot = true, 
+				FilesToAttach = new string[] { },
+				TakeScreenshot = true,
 				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
@@ -135,10 +136,12 @@ namespace Tests.ExceptionReporting
 			_fileService.Setup(f => f.Exists(zipFilename)).Returns(true);
 			_fileService.Setup(f => f.TempFile(zipFilename)).Returns(zipFilename);
 
-			var filesToAttach = new List<string> {logFile1, logFile2};
+			var filesToAttach = new List<string> { logFile1, logFile2 };
 			var config = new ExceptionReportInfo
 			{
-				FilesToAttach = filesToAttach.ToArray(), TakeScreenshot = false, AttachmentFilename = zipFilename
+				FilesToAttach = filesToAttach.ToArray(),
+				TakeScreenshot = false,
+				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
 			var result = zip.CreateZipReport(config);
@@ -159,7 +162,7 @@ namespace Tests.ExceptionReporting
 
 			var config = new ExceptionReportInfo
 			{
-				TakeScreenshot = true, 
+				TakeScreenshot = true,
 				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);
@@ -180,7 +183,7 @@ namespace Tests.ExceptionReporting
 
 			var config = new ExceptionReportInfo
 			{
-				TakeScreenshot = false, 
+				TakeScreenshot = false,
 				AttachmentFilename = zipFilename
 			};
 			var zip = new ZipAttachmentService(_zipper.Object, _screenshotTaker.Object, _fileService.Object);

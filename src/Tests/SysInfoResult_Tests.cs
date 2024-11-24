@@ -20,21 +20,21 @@ namespace Tests.ExceptionReporting
 		[Test]
 		public void Can_Filter()
 		{
-			var filterResults = _sysInfoResult.Filter(new[] {"CountryCode", "CodeSet"});
+			var filterResults = _sysInfoResult.Filter(new[] { "CountryCode", "CodeSet" });
 
 			Assert.That(filterResults.ChildResults[0].Nodes.Count, Is.EqualTo(2));
-			CollectionAssert.Contains(filterResults.ChildResults[0].Nodes, "CountryCode = 1");
-			CollectionAssert.Contains(filterResults.ChildResults[0].Nodes, "CodeSet = 7");
+			Assert.That(filterResults.ChildResults[0].Nodes, Contains.Item("CountryCode = 1"));
+			Assert.That(filterResults.ChildResults[0].Nodes, Contains.Item("CodeSet = 7"));
 		}
 
 		[Test]
 		public void Can_Filter_Just_Key()
 		{
 			_child.AddNode("Code = CodeSet");
-			var filterResults = _sysInfoResult.Filter(new[] { "CodeSet"});
+			var filterResults = _sysInfoResult.Filter(new[] { "CodeSet" });
 
 			Assert.That(filterResults.ChildResults[0].Nodes.Count, Is.EqualTo(1));
-			CollectionAssert.Contains(filterResults.ChildResults[0].Nodes, "CodeSet = 7");
+			Assert.That(filterResults.ChildResults[0].Nodes, Contains.Item("CodeSet = 7"));
 		}
 	}
 }
