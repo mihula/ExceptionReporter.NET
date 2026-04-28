@@ -7,6 +7,7 @@ using System.Collections.Generic;
 #if NETFRAMEWORK
 using System.Deployment.Application;
 #endif
+using System.Diagnostics;
 using System.Reflection;
 using ExceptionReporting.Core;
 using ExceptionReporting.Report;
@@ -49,11 +50,21 @@ namespace ExceptionReporting
 		private string GetAppVersion()
 		{
 #if NETFRAMEWORK
-			return ApplicationDeployment.IsNetworkDeployed ?
-				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
-#else
-			return _info.AppAssembly.GetName().Version.ToString();
+			if (_info.AppVersionType == AssemblyVersionType.AssemblyVersion
+				&& ApplicationDeployment.IsNetworkDeployed)
+				return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
 #endif
+			return _info.AppVersionType switch
+			{
+				AssemblyVersionType.FileVersion =>
+					FileVersionInfo.GetVersionInfo(_info.AppAssembly.Location).FileVersion
+					?? string.Empty,
+				AssemblyVersionType.InformationalVersion =>
+					_info.AppAssembly
+						.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+						?.InformationalVersion ?? string.Empty,
+				_ => _info.AppAssembly.GetName().Version.ToString()
+			};
 		}
 		
 		/// <summary>
