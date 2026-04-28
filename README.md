@@ -30,6 +30,18 @@ There are various other options available such hiding the email button (`ShowEma
  the label text (`UserExplanationLabel`), the background color (`BackgroundColor`) 
  etc - see the property  `Config` on the main `ExceptionReporter` class.
 
+#### App Version Type
+
+By default the report shows the **Assembly Version** (`AssemblyVersion` attribute). If your project uses `FileVersion` or `InformationalVersion` (e.g. SemVer with a git hash via `<InformationalVersion>`), configure it before calling `Show`/`Send`:
+
+```csharp
+er.Config.AppVersionType = AssemblyVersionType.FileVersion;
+// or
+er.Config.AppVersionType = AssemblyVersionType.InformationalVersion;
+```
+
+If the requested attribute is absent the field will be empty (no silent fallback).
+
 ## How to use it
 
 The Exception Reporter can be invoked manually or by setting up a Windows 
