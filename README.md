@@ -1,4 +1,4 @@
-# Exception Reporter.NET
+# ProExceptionReporter
 
 > Fork of [PandaWood/ExceptionReporter.NET](https://github.com/PandaWood/ExceptionReporter.NET) — this fork removes WPF support (WinForms only), removes pt-BR/ru localisations (English only), and replaces ProDotNetZip with the built-in `System.IO.Compression`. NuGet package is published as `ProExceptionReporter`; migrating from the original `ExceptionReporter` package requires only a package reference swap — namespaces remain `ExceptionReporting.*`.
 

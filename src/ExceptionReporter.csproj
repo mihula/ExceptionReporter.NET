@@ -11,7 +11,7 @@
     <Authors>Provys</Authors>
     <Description>WinForms dialog for detailed .NET exception reporting</Description>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/mihula/ExceptionReporter.NET</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mihula/ProExceptionReporter</RepositoryUrl>
     <PackageTags>exception;error;reporting;winforms</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
