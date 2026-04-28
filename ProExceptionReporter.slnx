@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/demo/">
+    <Project Path="demo/ExceptionReporter.Demo.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/ExceptionReporter.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/ExceptionReporter.Tests.csproj" />
+  </Folder>
+</Solution>
