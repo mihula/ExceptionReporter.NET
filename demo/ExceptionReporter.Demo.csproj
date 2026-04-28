@@ -5,6 +5,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Demo.WinForms</RootNamespace>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net48'">

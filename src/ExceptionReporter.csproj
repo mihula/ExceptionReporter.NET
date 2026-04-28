@@ -5,8 +5,8 @@
     <RootNamespace>ExceptionReporting</RootNamespace>
     <AssemblyName>ProExceptionReporter</AssemblyName>
     <PackageId>ProExceptionReporter</PackageId>
-    <Version>6.1.0</Version>
-    <FileVersion>6.1.0.0</FileVersion>
+    <Version>6.2.0-preview.1</Version>
+    <FileVersion>6.2.0.0</FileVersion>
     <Authors>Provys</Authors>
     <Description>WinForms dialog for detailed .NET exception reporting</Description>
     <PackageIcon>ProExceptionReporter.png</PackageIcon>
