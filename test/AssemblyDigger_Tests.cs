@@ -13,7 +13,11 @@ namespace Tests.ExceptionReporting
 			var digger = new AssemblyDigger(Assembly.Load("ProExceptionReporter"));
 			var refs = digger.GetAssemblyRefs().ToList();
 
+#if NET48
 			Assert.That(refs.Select(r => r.Name), Is.SupersetOf(new [] {"System.Core", "System.IO.Compression", "SimpleMapi.NET"}));
+#else
+			Assert.That(refs.Select(r => r.Name), Is.SupersetOf(new [] {"SimpleMapi.NET"}));
+#endif
 		}
 
 		[Test]

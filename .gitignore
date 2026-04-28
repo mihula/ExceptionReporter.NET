@@ -2,6 +2,9 @@
 [Tt]humbs.db
 *.DS_Store
 
+#ai
+.claude/settings.local.json
+
 mailslurper
 
 #Visual Studio files

@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+#if NETFRAMEWORK
 using System.Deployment.Application;
+#endif
 using System.Reflection;
 using ExceptionReporting.Core;
 using ExceptionReporting.Report;
@@ -46,8 +48,12 @@ namespace ExceptionReporting
 
 		private string GetAppVersion()
 		{
-			return ApplicationDeployment.IsNetworkDeployed ? 
+#if NETFRAMEWORK
+			return ApplicationDeployment.IsNetworkDeployed ?
 				ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : _info.AppAssembly.GetName().Version.ToString();
+#else
+			return _info.AppAssembly.GetName().Version.ToString();
+#endif
 		}
 		
 		/// <summary>
