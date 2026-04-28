@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 namespace Tests.ExceptionReporting
 {
+	[TestFixture]
 	public class ReportGenerator_AppVersion_Tests
 	{
 		private static Assembly TestAssembly => Assembly.GetExecutingAssembly();
@@ -31,7 +32,7 @@ namespace Tests.ExceptionReporting
 			};
 			new ReportGenerator(info);
 
-			Assert.That(info.AppVersion, Is.EqualTo(TestAssembly.GetName().Version.ToString()));
+			Assert.That(info.AppVersion, Is.EqualTo(TestAssembly.GetName().Version?.ToString() ?? string.Empty));
 		}
 
 		[Test]

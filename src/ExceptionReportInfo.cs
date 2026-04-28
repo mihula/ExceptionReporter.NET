@@ -99,7 +99,8 @@ namespace ExceptionReporting
 		/// <summary>
 		/// The version of the application calling the exception report
 		/// set automatically by <see cref="ReportGenerator"/> from either the assembly or ApplicationDeployment
-		/// if deployed using ClickOnce
+		/// if deployed using ClickOnce.
+		/// The version type extracted is controlled by <see cref="AppVersionType"/>.
 		/// </summary>
 		public string AppVersion { get; set; }
 
