@@ -104,6 +104,12 @@ namespace ExceptionReporting
 		public string AppVersion { get; set; }
 
 		/// <summary>
+		/// Which version type to extract from the application assembly for <see cref="AppVersion"/>.
+		/// Defaults to <see cref="AssemblyVersionType.AssemblyVersion"/> (existing behavior).
+		/// </summary>
+		public AssemblyVersionType AppVersionType { get; set; } = AssemblyVersionType.AssemblyVersion;
+
+		/// <summary>
 		/// Region information - set automatically by <see cref="ReportGenerator"/>
 		/// </summary>
 		public string RegionInfo { get; set; }
