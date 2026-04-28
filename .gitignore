@@ -4,6 +4,7 @@
 
 #ai
 .claude/settings.local.json
+artifacts
 
 mailslurper
 
@@ -70,3 +71,5 @@ packages/
 .vscode
 *.orig
 MigrationBackup
+
+artifacts/

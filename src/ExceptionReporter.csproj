@@ -9,6 +9,8 @@
     <FileVersion>6.0.0.0</FileVersion>
     <Authors>Provys</Authors>
     <Description>WinForms dialog for detailed .NET exception reporting</Description>
+    <PackageIcon>ProExceptionReporter.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <RepositoryUrl>https://github.com/mihula/ProExceptionReporter</RepositoryUrl>
     <PackageTags>exception;error;reporting;winforms</PackageTags>
@@ -28,8 +30,10 @@
 
   <ItemGroup>
     <None Include="..\LICENSE.txt" Pack="true" PackagePath="" />
-  </ItemGroup>
-
+		<None Include="..\README.md" Pack="true" PackagePath="" />
+		<None Include="ProExceptionReporter.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+	
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>

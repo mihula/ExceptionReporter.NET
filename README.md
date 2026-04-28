@@ -3,6 +3,7 @@
 > Fork of [PandaWood/ExceptionReporter.NET](https://github.com/PandaWood/ExceptionReporter.NET) — this fork removes WPF support (WinForms only), removes pt-BR/ru localisations (English only), and replaces ProDotNetZip with the built-in `System.IO.Compression`. NuGet package is published as `ProExceptionReporter`; migrating from the original `ExceptionReporter` package requires only a package reference swap — namespaces remain `ExceptionReporting.*`.
 
 [![NuGet Badge](https://buildstats.info/nuget/ProExceptionReporter)](https://www.nuget.org/packages/ProExceptionReporter/)
+[![CI](https://github.com/mihula/ProExceptionReporter/actions/workflows/ci.yml/badge.svg)](https://github.com/mihula/ProExceptionReporter/actions/workflows/ci.yml)
 
 ```
 PM> Install-Package ProExceptionReporter
@@ -129,20 +130,33 @@ Operating System
 
 ## Build
 
-Requires .NET Framework 4.8.
+Requires .NET SDK 10. Targets `net48` and `net10.0-windows` (Windows only).
 
 ```bash
-dotnet build
-dotnet test
-dotnet pack src/ExceptionReporter.csproj -c Release
+dotnet build test/ExceptionReporter.Tests.csproj
+dotnet test test/ExceptionReporter.Tests.csproj
+dotnet pack src/ExceptionReporter.csproj -c Release --output ./artifacts
 ```
 
 ### Solution Structure
 
 ```
-src/   — ProExceptionReporter library (NuGet)
+src/   — ProExceptionReporter library (NuGet, net48 + net10.0-windows)
 test/  — unit tests (NUnit + Moq)
 demo/  — WinForms demo application
 ```
 
 Unit tests use [Moq](https://github.com/Moq/moq4/wiki/Quickstart) and [NUnit](https://nunit.org/) — see `test/`.
+
+## Releasing
+
+Releases are published automatically via GitHub Actions when a `v*` tag is pushed to `main`:
+
+```bash
+git tag v6.1.0
+git push origin v6.1.0
+```
+
+The pipeline builds, tests, and publishes to [NuGet.org](https://www.nuget.org/packages/ProExceptionReporter/) and GitHub Packages. CI runs on every push to `main` and every PR.
+
+Requires `NUGET_API_KEY` secret configured in repo Settings → Secrets → Actions.

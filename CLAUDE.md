@@ -5,18 +5,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-dotnet build                                                          # build all projects
-dotnet test                                                           # run all tests
-dotnet test --filter "FullyQualifiedName~TemplateRenderer"           # run single test class
+dotnet build test/ExceptionReporter.Tests.csproj                          # build library + tests (both TFMs)
+dotnet test test/ExceptionReporter.Tests.csproj                           # run all tests (net48 + net10.0-windows)
+dotnet test --filter "FullyQualifiedName~TemplateRenderer"                # run single test class
 dotnet pack src/ExceptionReporter.csproj -c Release --output ./artifacts  # create NuGet
 ```
+
+> No `.sln` file — use explicit project paths. Building `test/ExceptionReporter.Tests.csproj` also builds the library via `ProjectReference`.
 
 ## Architecture
 
 ### Solution Structure
 
 ```
-src/   — ProExceptionReporter.dll (NuGet library, net48)
+src/   — ProExceptionReporter.dll (NuGet library, net48 + net10.0-windows)
 test/  — NUnit + Moq tests
 demo/  — WinForms demo app (WinExe)
 ```
@@ -61,4 +63,20 @@ Most implementation types (`IAttach`, `IFileService`, `IZipper`, senders, `SysIn
 
 ### csproj Notes
 
-The library csproj requires `<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>` and `System.Resources.Extensions` NuGet package because the WinForms `.resx` files contain binary (non-string) resources and the project builds with .NET SDK 10 targeting net48.
+The library csproj requires `<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>` because the WinForms `.resx` files contain binary (non-string) resources. `System.Resources.Extensions` NuGet package is referenced only for the `net48` target (binary `.resx` deserialization at runtime); it is not needed for `net10.0-windows`.
+
+`System.Management` (WMI) is a built-in framework assembly on `net48` and a NuGet package (`System.Management` v10.0.0) on `net10.0-windows`. All other WinForms framework references (`System.Drawing`, `System.Windows.Forms`, etc.) are net48-only — they are built into the net10.0-windows TFM.
+
+## Releasing
+
+CI/CD is defined in `.github/workflows/ci.yml` (GitHub Actions, `windows-latest`):
+
+- **CI**: runs on every push to `main`/`master` and every PR — builds and tests both TFMs
+- **Publish**: triggered by a `v*` tag — packs and pushes to NuGet.org and GitHub Packages
+
+```bash
+git tag v6.1.0
+git push origin v6.1.0
+```
+
+Required secret: `NUGET_API_KEY` in repo Settings → Secrets → Actions (NuGet.org API key scoped to `ProExceptionReporter`). `GITHUB_TOKEN` is injected automatically.
