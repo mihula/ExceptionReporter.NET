@@ -63,7 +63,7 @@ namespace ExceptionReporting
 					_info.AppAssembly
 						.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
 						?.InformationalVersion ?? string.Empty,
-				_ => _info.AppAssembly.GetName().Version.ToString()
+				_ => _info.AppAssembly.GetName().Version?.ToString() ?? string.Empty
 			};
 		}
 		
